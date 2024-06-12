@@ -17,7 +17,13 @@ router.post('/', async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
     
+    //Pick or lodash method 
     res.send(_.pick(user, ['_id', 'name', 'email']));
+    
+    // res.send({  // Manual method
+    //     user: user.name,
+    //     email: user.email
+    // });
 });
 
 module.exports = router;
