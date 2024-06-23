@@ -1,5 +1,6 @@
 require('express-async-errors');
 const winston = require('winston');
+require ('winston-mongodb');
 const error = require('./middleware/error');
 const config = require('config');
 const Joi = require('joi');
@@ -15,6 +16,7 @@ const express = require('express');
 const app = express();
 
 winston.add(winston.transports.File, { filename: 'logfile.log' });
+winston.add(winston.transports.MongoDB, { db: 'mongodb://localhost/vidly' });
 
 if (!config.get('jwtPrivateKey')) { // if you have Apps Vidly-Apps -> name it VidlyApp in config otherwise will not connect wit Database. I spent 2hrs to figure out.
     console.error('FATEL ERROR: jwtPrivate is not defined.');
